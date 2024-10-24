@@ -1,0 +1,23 @@
+db["movies"].find({year: 1977})
+
+db.movies.aggregate([
+  {
+    $group: {
+      _id: { 
+        year: "$year"
+      },
+      count: { 
+        $sum: 1 
+      }
+    }
+  }
+])
+
+db["movies"].find({title: "Eraserhead"}).explain("executionStats")
+db["movies"].createIndex({"title":1})
+db["movies"].getIndexes()
+db["movies"].dropIndex("title_1")
+
+db["movies"].createIndexes({ plot: "text"})
+db["movies"].find({ $text: { $search: "Spock" } })
+
